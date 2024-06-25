@@ -319,8 +319,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 359.21875, y: 0}
-  m_SizeDelta: {x: -718.4374, y: 0}
+  m_AnchoredPosition: {x: -5.229004, y: 8.335022}
+  m_SizeDelta: {x: -189.5805, y: -216.7083}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &772350165
 MonoBehaviour:
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipDuration: 1
-  cardsCount: 10
+  cardsCount: 40
   cardPrefab: {fileID: 2584671460891181602, guid: 7205724b4dd6c7a40986a8b956989af3, type: 3}
   cardFaces:
   - {fileID: 21300000, guid: 885027a95a7f92a4e97c92a4dc8d7f73, type: 3}
@@ -455,7 +455,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fdd62d7d9bb9a1a44992ceb7ef3dca36, type: 3}
   - {fileID: 21300000, guid: 867e4c26f2e87b347a296354004820e7, type: 3}
   - {fileID: 21300000, guid: a389e0a378cd8fb47b604da00059de7d, type: 3}
-  - {fileID: 21300000, guid: 559959d02b3bbb846a982e64db7862a2, type: 3}
+  minimumSpacing: 10
+  spacingPercatageToCell: 0.5
 --- !u!1 &923067942
 GameObject:
   m_ObjectHideFlags: 0
