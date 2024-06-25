@@ -1,21 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CardsManager : Singletons<CardsManager>
+public class GridManager : Singletons<GridManager>
 {
-    [SerializeField] float flipDuration = 1.0f;
-    public float FlipDuration => flipDuration;
-
     [SerializeField] int cardsCount;
-    [SerializeField] Card cardPrefab;
+    [SerializeField] GameObject cardPrefab;
     [SerializeField] Sprite[] cardFaces;
-
-
+    [SerializeField] GridLayoutGroup gridLayoutGroup;
     private void Start()
     {
         ShuffleCardsToPickFrom();
-        PopulateGridWithCards();
         SetupGridLayout();
+        PopulateGridWithCards();
         ShuffleCreatedCards();
     }
     private void ShuffleCardsToPickFrom()
@@ -51,18 +47,17 @@ public class CardsManager : Singletons<CardsManager>
         return rowColumnsCombination;
     }
 
-    GridLayoutGroup gridLayoutGroup;
+    [Space]
+    [Header("Grid Spacing")]
     [SerializeField] float minimumSpacing = 10f; 
     [SerializeField] float spacingPercatageToCell=0.5f;
     private void SetupGridLayout()
     {
-        gridLayoutGroup = GetComponent<GridLayoutGroup>();
-
         int[] balancedGrid = FindClosestBalancedGrid(cardsCount);
         int columns = balancedGrid[1];
         int rows = balancedGrid[0];
 
-        RectTransform parentRect = GetComponent<RectTransform>();
+        RectTransform parentRect = gridLayoutGroup.GetComponent<RectTransform>();
 
         float cellWidth = parentRect.rect.width / (columns+spacingPercatageToCell);
         float cellHeight = parentRect.rect.height / (rows+ spacingPercatageToCell);
@@ -85,19 +80,23 @@ public class CardsManager : Singletons<CardsManager>
     }
 
     bool repeatCard;
-    int currentCardIndex;
+    int frontFaceIndex;
+
+    Transform gridParent;
     private void PopulateGridWithCards()
     {
         repeatCard = true;
+        gridParent = gridLayoutGroup.transform;
         for (int i = 0; i < cardsCount; i++)
-            CreateCard();
+            CreateCard(i);
     }
-    private void CreateCard()
+    private void CreateCard(int i)
     {
-        Card newCard = Instantiate(cardPrefab, transform);
-        newCard.SetFrontFace(cardFaces[currentCardIndex], currentCardIndex);
+        Card newCard = Instantiate(cardPrefab, gridParent).transform.GetChild(0).GetComponent<Card>();
+        newCard.transform.parent.name = "card " + i;
+        newCard.SetFrontFace(cardFaces[frontFaceIndex], frontFaceIndex);
         if (!repeatCard)
-            currentCardIndex++;
+            frontFaceIndex++;
         repeatCard = !repeatCard;
     }
     public void ShuffleCreatedCards()
@@ -119,7 +118,7 @@ public class CardsManager : Singletons<CardsManager>
 
         for (int i = 0; i < cardsCount; i++)
         {
-            transform.GetChild(indices[i]).SetSiblingIndex(i);
+            gridParent.GetChild(indices[i]).SetSiblingIndex(i);
         }
     }
 }
