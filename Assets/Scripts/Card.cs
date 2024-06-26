@@ -33,6 +33,11 @@ public class Card : MonoBehaviour
         AssignReferences();
         ResetValues();
     }
+    private void SubsribeToMatchManager()
+    {
+        LevelManager.Singleton.OnLose += OnMatchEnd;
+        LevelManager.Singleton.OnWin += OnMatchEnd;
+    }
     private void Start()
     {
         ShowFrontFaceThenHide();
@@ -150,5 +155,18 @@ public class Card : MonoBehaviour
         FlipCard();
         comparingCard.FlipCard();
         comparingCard = null;
+    }
+    private void OnMatchEnd()
+    {
+        enabled = false;
+    }
+    private void OnDisable()
+    {
+        UnSubsribeToMatchManager();
+    }
+    private void UnSubsribeToMatchManager()
+    {
+        LevelManager.Singleton.OnLose -= OnMatchEnd;
+        LevelManager.Singleton.OnWin -= OnMatchEnd;
     }
 }

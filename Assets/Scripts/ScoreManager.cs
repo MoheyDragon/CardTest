@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 public class ScoreManager:Singletons<ScoreManager>
 {
+    public Action OnCombo;
     int score;
-    int combo;
+    int comboStrike;
     [Header("Time Based Combo")]
     [SerializeField] bool isComboAffectedByTime;
     [SerializeField] float waitTimeForCombo;
@@ -27,7 +29,7 @@ public class ScoreManager:Singletons<ScoreManager>
     }
     private void OnMatching()
     {
-        AddScore(1);
+        AddScore();
         CheckCombo();
         PrepareForNextCombo();
     }
@@ -43,6 +45,8 @@ public class ScoreManager:Singletons<ScoreManager>
 
         if (isComboAchieved)
             OnComboAchieved();
+        else
+            comboStrike = 0;
     }
     private void PrepareForNextCombo()
     {
@@ -104,14 +108,16 @@ public class ScoreManager:Singletons<ScoreManager>
             isLastMatchWin = false;
 
     }
-    private void AddScore(int score)
+    private void AddScore()
     {
-        this.score += score;
-        print("Score = " + this.score);
+        score++;
+        print("Score = " + score);
     }
     private void OnComboAchieved()
     {
-        combo++;
-        print("Combo : " + combo);
+        comboStrike++;
+        print("Combo : " + comboStrike);
+        OnCombo?.Invoke();
+        AddScore();
     }
 }

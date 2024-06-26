@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class GridManager : Singletons<GridManager>
 {
     [SerializeField] int cardsCount;
+    public int totalMatchesCount => cardsCount / 2;
     [SerializeField] GameObject cardPrefab;
     [SerializeField] Sprite[] cardFaces;
     [SerializeField] GridLayoutGroup gridLayoutGroup;
