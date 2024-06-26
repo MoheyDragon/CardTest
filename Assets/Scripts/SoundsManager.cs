@@ -13,23 +13,32 @@ public class SoundsManager : Singletons<SoundsManager>
     [SerializeField] AudioClip[] clickOnMenuButtons;
     [SerializeField] AudioClip winSound;
     [SerializeField] AudioClip loseSound;
-
-    protected override void Awake()
+    [SerializeField] AudioClip levelMusic;
+    private void Start()
     {
-        base.Awake();
         SubscribeToSoundActions();
     }
     private void SubscribeToSoundActions()
     {
-        Card.OnCardStartedFlip += OnFlip;
-        Card.OnMatching += OnMatch;
-        Card.OnMissMatching += OnMissMatch;
-        ScoreManager.Singleton.OnCombo += OnCombo;
+        CardManager.Singleton.OnCardFlipped += OnFlip;
+
+        LevelManager.Singleton.OnLevelStart += OnLevelStarted;
+
+        LevelManager.Singleton.OnMatch += OnMatch;
+        LevelManager.Singleton.OnMisMatch += OnMissMatch;
 
         LevelManager.Singleton.OnWin += OnWin;
         LevelManager.Singleton.OnLose+= OnLose;
+
+        ScoreManager.Singleton.OnCombo += OnCombo;
+
     }
-    private void OnFlip(Card card)
+    private void OnLevelStarted()
+    {
+        musicAudioSource.clip = levelMusic;
+        musicAudioSource.Play();
+    }
+    private void OnFlip()
     {
         PlaySound(PickRandomClip(cardFlip));
     }
@@ -37,7 +46,7 @@ public class SoundsManager : Singletons<SoundsManager>
     {
         PlaySound(PickRandomClip(correctMatchClips));
     }
-    private void OnMissMatch()
+    private void OnMissMatch(int mistakesCount)
     {
         PlaySound(PickRandomClip(missMatchClips));
     }
@@ -51,10 +60,12 @@ public class SoundsManager : Singletons<SoundsManager>
     }
     private void OnWin()
     {
+        musicAudioSource.Stop();
         PlaySound(winSound);
     }
     private void OnLose()
     {
+        musicAudioSource.Stop();
         PlaySound(loseSound);
     }
     private AudioClip PickRandomClip(AudioClip[]clips)

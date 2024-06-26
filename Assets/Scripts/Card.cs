@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Card : MonoBehaviour
 {
-    
-    public static Action <Card> OnCardStartedFlip;
-    public static Action OnMatching;
-    public static Action OnMissMatching;
-
     Button button;
 
     Image cardImage;
@@ -31,16 +26,17 @@ public class Card : MonoBehaviour
     private void Awake()
     {
         AssignReferences();
+    }
+    private void Start()
+    {
         ResetValues();
+        ShowFrontFaceThenHide();
+        SubsribeToMatchManager();
     }
     private void SubsribeToMatchManager()
     {
         LevelManager.Singleton.OnLose += OnMatchEnd;
         LevelManager.Singleton.OnWin += OnMatchEnd;
-    }
-    private void Start()
-    {
-        ShowFrontFaceThenHide();
     }
     public void SetFrontFace(Sprite frontFace, int cardIndex)
     {
@@ -60,7 +56,7 @@ public class Card : MonoBehaviour
     {
         if (isFlipping) return;
         if (!isBackSideUp) return;
-        OnCardStartedFlip.Invoke(this);
+        CardManager.Singleton.OnCardStartedFlip(this);
         FlipCard();
     }
     float startRotation = 0;
@@ -69,7 +65,6 @@ public class Card : MonoBehaviour
     {
         isFlipping = true;
         float t = 0.0f;
-
         while (t < flipDuration / 2)
         {
             t += Time.deltaTime;
@@ -145,13 +140,13 @@ public class Card : MonoBehaviour
     }
     private void CorrectMatch()
     {
-        OnMatching?.Invoke();
+        LevelManager.Singleton.CorrectMatch();
         Destroy(comparingCard.gameObject);
         Destroy(gameObject);
     }
     private void MissMatch()
     {
-        OnMissMatching?.Invoke();
+        LevelManager.Singleton.WrongMatch();
         FlipCard();
         comparingCard.FlipCard();
         comparingCard = null;
@@ -159,6 +154,7 @@ public class Card : MonoBehaviour
     private void OnMatchEnd()
     {
         enabled = false;
+        button.enabled = false;
     }
     private void OnDisable()
     {

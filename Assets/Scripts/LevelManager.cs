@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class LevelManager : Singletons<LevelManager>
 {
+    public Action OnMatch;
+    public Action <int>OnMisMatch;
+    public Action OnLevelStart;
     public Action OnWin;
     public Action OnLose;
 
@@ -13,47 +16,44 @@ public class LevelManager : Singletons<LevelManager>
     [SerializeField] float levelTime=60;
 
     [Space]
-    public Action OnMistake;
     [SerializeField] bool isMatchMistakesLimited;
     [SerializeField] int mistakesLimit=5;
     int mistakesCount;
 
     private int matchesCount;
     private int totalMatches;
-    protected override void Awake()
-    {
-        base.Awake();
-        SubscribeToMatchActions();
-        SetupValues();
-    }
     private void Start()
     {
+        SetupValues();
         if (isLevelTimeLimited)
             StartCoroutine(CO_StartMatchTimer());
+        Invoke(nameof(StartLevel), 1);
     }
-
-    private void SubscribeToMatchActions()
+    private void StartLevel()
     {
-        Card.OnMatching += OnMatchCorrect;
-        if(isMatchMistakesLimited)
-            Card.OnMissMatching += OnMissMatch;
+        OnLevelStart?.Invoke();
     }
     private void SetupValues()
     {
         totalMatches = GridManager.Singleton.totalMatchesCount;
     }
-    private void OnMatchCorrect()
+    public void CorrectMatch()
     {
         matchesCount++;
         if (matchesCount == totalMatches)
             OnWin?.Invoke();
+        else
+            OnMatch?.Invoke();
     }
-    private void OnMissMatch()
+    public void WrongMatch()
     {
         mistakesCount++;
-            OnMistake?.Invoke();
-        if(mistakesCount == mistakesLimit)
-            OnLose?.Invoke();
+        OnMisMatch?.Invoke(mistakesCount);
+        if(isMatchMistakesLimited)
+        {
+            if(mistakesCount == mistakesLimit)
+                OnLose?.Invoke();
+        }
     }
     IEnumerator CO_StartMatchTimer()
     {
@@ -65,15 +65,6 @@ public class LevelManager : Singletons<LevelManager>
             elapsedTime += 1;
             OnTimeUpdated?.Invoke((int)elapsedTime);
         }
-    }
-    private void OnDisable()
-    {
-        UnSubscribeToMatchActions();
-    }
-    private void UnSubscribeToMatchActions()
-    {
-        Card.OnMatching -= OnMatchCorrect;
-        if (isMatchMistakesLimited)
-            Card.OnMissMatching -= OnMissMatch;
+        OnLose?.Invoke();
     }
 }

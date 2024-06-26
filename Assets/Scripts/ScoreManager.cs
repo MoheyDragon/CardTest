@@ -15,16 +15,15 @@ public class ScoreManager:Singletons<ScoreManager>
     [Header("Mistakes Based Combo")]
     [SerializeField] bool isComboAffectedByMistakes;
                      bool isLastMatchWin;
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-        timeInSeconds=new WaitForSeconds(waitTimeForCombo);
+        timeInSeconds = new WaitForSeconds(waitTimeForCombo);
         SubscribeToCardActions();
     }
     private void SubscribeToCardActions()
     {
-        Card.OnMatching += OnMatching;
-        Card.OnMissMatching += OnMissMatching;
+        LevelManager.Singleton.OnMatch += OnMatching;
+        LevelManager.Singleton.OnMisMatch += OnMissMatching;
 
     }
     private void OnMatching()
@@ -102,7 +101,7 @@ public class ScoreManager:Singletons<ScoreManager>
         if (actionIndex == thisActionIndex)
             isComboTimerActive = false;
     }
-    private void OnMissMatching()
+    private void OnMissMatching(int mistakesCount)
     {
         if (isComboAffectedByMistakes)
             isLastMatchWin = false;
