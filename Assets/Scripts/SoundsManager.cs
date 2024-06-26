@@ -50,7 +50,7 @@ public class SoundsManager : Singletons<SoundsManager>
     {
         PlaySound(PickRandomClip(missMatchClips));
     }
-    private void OnCombo()
+    private void OnCombo(int combo)
     {
         PlaySound(PickRandomClip(comboClips));
     }

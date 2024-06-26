@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class LevelManager : Singletons<LevelManager>
 {
+    public int LevelIndex;
     public Action OnMatch;
     public Action <int>OnMisMatch;
     public Action OnLevelStart;
     public Action OnWin;
     public Action OnLose;
+    public Action <int>OnTurn;
 
     public Action <int>OnTimeUpdated;
     [SerializeField] bool isLevelTimeLimited;
@@ -22,6 +24,8 @@ public class LevelManager : Singletons<LevelManager>
 
     private int matchesCount;
     private int totalMatches;
+
+    private int turns;
     private void Start()
     {
         SetupValues();
@@ -36,9 +40,11 @@ public class LevelManager : Singletons<LevelManager>
     private void SetupValues()
     {
         totalMatches = GridManager.Singleton.totalMatchesCount;
+        mistakesCount = mistakesLimit;
     }
     public void CorrectMatch()
     {
+        IncreaseTurns();
         matchesCount++;
         if (matchesCount == totalMatches)
             OnWin?.Invoke();
@@ -47,19 +53,26 @@ public class LevelManager : Singletons<LevelManager>
     }
     public void WrongMatch()
     {
-        mistakesCount++;
+        IncreaseTurns();
+        mistakesCount--;
         OnMisMatch?.Invoke(mistakesCount);
         if(isMatchMistakesLimited)
         {
-            if(mistakesCount == mistakesLimit)
+            if(mistakesCount == 0)
                 OnLose?.Invoke();
         }
+    }
+    private void IncreaseTurns()
+    {
+        turns++;
+        OnTurn?.Invoke(turns);
     }
     IEnumerator CO_StartMatchTimer()
     {
         WaitForSeconds second = new WaitForSeconds(1);
         float elapsedTime = 0;
-        while(elapsedTime<=levelTime)
+        OnTimeUpdated?.Invoke((int)elapsedTime);
+        while (elapsedTime<=levelTime)
         {
             yield return second;
             elapsedTime += 1;
@@ -67,4 +80,10 @@ public class LevelManager : Singletons<LevelManager>
         }
         OnLose?.Invoke();
     }
+    #region ForUICouldBeDoneBetter
+    public bool IsLoseTimeBased=> isLevelTimeLimited;
+    public bool IsLoseMistakesBased=> isMatchMistakesLimited;
+    public int totalMistakesAllowed => mistakesLimit;
+    public float timeAllowed => levelTime;
+    #endregion
 }

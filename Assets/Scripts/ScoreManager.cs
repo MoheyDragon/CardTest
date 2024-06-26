@@ -3,7 +3,8 @@ using System.Collections;
 using System;
 public class ScoreManager:Singletons<ScoreManager>
 {
-    public Action OnCombo;
+    public Action <int>OnCombo;
+    public Action <int>OnScore;
     int score;
     int comboStrike;
     [Header("Time Based Combo")]
@@ -110,13 +111,12 @@ public class ScoreManager:Singletons<ScoreManager>
     private void AddScore()
     {
         score++;
-        print("Score = " + score);
+        OnScore?.Invoke(score);
     }
     private void OnComboAchieved()
     {
-        comboStrike++;
-        print("Combo : " + comboStrike);
-        OnCombo?.Invoke();
         AddScore();
+        comboStrike++;
+        OnCombo?.Invoke(comboStrike);
     }
 }
