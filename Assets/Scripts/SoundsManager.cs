@@ -52,6 +52,7 @@ public class SoundsManager : Singletons<SoundsManager>
     }
     private void OnCombo(int combo)
     {
+        if (combo == -1||combo==0) return;
         PlaySound(PickRandomClip(comboClips));
     }
     private void OnWin()

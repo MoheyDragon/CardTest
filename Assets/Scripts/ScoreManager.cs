@@ -48,6 +48,11 @@ public class ScoreManager:Singletons<ScoreManager>
         else
             comboStrike = 0;
     }
+    private void ResetCombo()
+    {
+        comboStrike =-1;
+        OnCombo?.Invoke(comboStrike);
+    }
     private void PrepareForNextCombo()
     {
         if(isComboAffectedByMistakes)
@@ -100,13 +105,18 @@ public class ScoreManager:Singletons<ScoreManager>
         int thisActionIndex = actionIndex;
         yield return timeInSeconds;
         if (actionIndex == thisActionIndex)
+        {
             isComboTimerActive = false;
+            ResetCombo();
+        }
     }
     private void OnMissMatching(int mistakesCount)
     {
         if (isComboAffectedByMistakes)
+        {
             isLastMatchWin = false;
-
+            ResetCombo();
+        }
     }
     private void AddScore()
     {

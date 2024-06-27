@@ -45,8 +45,14 @@ public class Card : MonoBehaviour
     }
     public  void ShowFrontFaceThenHide()
     {
+        button.enabled = false;
         AlterVisibleFace();
         Invoke(nameof(FlipCard), CardManager.Singleton.ShowCardsDuration);
+        Invoke(nameof(EnableCard), CardManager.Singleton.ShowCardsDuration);
+    }
+    private void EnableCard()
+    {
+        button.enabled = true;
     }
     public void FlipCard()
     {

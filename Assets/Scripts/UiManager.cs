@@ -41,6 +41,8 @@ public class UiManager : Singletons<UiManager>
     }
     private void UpdateCombo(int newValue)
     {
+        if (newValue == -1)
+            newValue = 0;
         UpdateText(combo, newValue);
     }
     private void UpdateTurns(int newValue)
