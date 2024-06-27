@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 public class EndGameManager : Singletons<EndGameManager>
 {
     [SerializeField] Canvas gameEndCanvas;
+    [Space]
     [SerializeField] private GameObject restartButton;
     [SerializeField] private GameObject nextLevelButton;
     [SerializeField] private GameObject menuButton;
@@ -11,7 +11,7 @@ public class EndGameManager : Singletons<EndGameManager>
     private void Start()
     {
         Setup();
-        SubscribeToActions();
+        SubscribeToLevelManager();
     }
     public void PlayNextLevel()
     {
@@ -33,7 +33,7 @@ public class EndGameManager : Singletons<EndGameManager>
         menuButton.SetActive(false);
         nextLevelButton.SetActive(false);
     }
-    private void SubscribeToActions()
+    private void SubscribeToLevelManager()
     {
         LevelManager.Singleton.OnWin += OnWin;
         LevelManager.Singleton.OnLose += OnLose;

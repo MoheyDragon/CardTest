@@ -12,9 +12,10 @@ public class LevelManager : Singletons<LevelManager>
     public Action OnLose;
     public Action <int>OnTurn;
 
-    public Action <int>OnTimeUpdated;
+    [Space]
     [SerializeField] bool isLevelTimeLimited;
     [SerializeField] float levelTime=60;
+    public Action <int>OnTimeUpdated;
 
     [Space]
     [SerializeField] bool isMatchMistakesLimited;
@@ -79,7 +80,7 @@ public class LevelManager : Singletons<LevelManager>
         }
         OnLose?.Invoke();
     }
-    #region ForUICouldBeDoneBetter
+    #region ForUICouldBeDoneBetterIfHaveMoreTime
     public bool IsLoseTimeBased=> isLevelTimeLimited;
     public bool IsLoseMistakesBased=> isMatchMistakesLimited;
     public int totalMistakesAllowed => mistakesLimit;
