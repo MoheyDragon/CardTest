@@ -1516,9 +1516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de07bb605b89f94a8499d4c1b156559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelIndex: 5
+  LevelIndex: 4
   isLevelTimeLimited: 1
-  levelTime: 180
+  levelTime: 120
   isMatchMistakesLimited: 0
   mistakesLimit: 3
 --- !u!1 &923067942
@@ -3138,7 +3138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f202031be955645acab99c064b0647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardsCount: 35
+  cardsCount: 30
   cardPrefab: {fileID: 7413971155826813768, guid: 08ef52a5f13311c4c81784e82295f6aa, type: 3}
   cardFaces:
   - {fileID: 21300000, guid: 885027a95a7f92a4e97c92a4dc8d7f73, type: 3}

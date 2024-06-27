@@ -3232,7 +3232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f202031be955645acab99c064b0647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardsCount: 25
+  cardsCount: 24
   cardPrefab: {fileID: 7413971155826813768, guid: 08ef52a5f13311c4c81784e82295f6aa, type: 3}
   cardFaces:
   - {fileID: 21300000, guid: 885027a95a7f92a4e97c92a4dc8d7f73, type: 3}

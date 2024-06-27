@@ -47,7 +47,10 @@ public class LevelManager : Singletons<LevelManager>
         IncreaseTurns();
         matchesCount++;
         if (matchesCount == totalMatches)
+        {
+            StopAllCoroutines();
             OnWin?.Invoke();
+        }
         else
             OnMatch?.Invoke();
     }
