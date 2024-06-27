@@ -1612,7 +1612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelIndex: 3
   isLevelTimeLimited: 1
-  levelTime: 60
+  levelTime: 120
   isMatchMistakesLimited: 0
   mistakesLimit: 3
 --- !u!1 &923067942
