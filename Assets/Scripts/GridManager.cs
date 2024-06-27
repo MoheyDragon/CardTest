@@ -100,7 +100,7 @@ public class GridManager : Singletons<GridManager>
             frontFaceIndex++;
         repeatCard = !repeatCard;
     }
-    public void ShuffleCreatedCards()
+    private void ShuffleCreatedCards()
     {
         int[] indices = new int[cardsCount];
 

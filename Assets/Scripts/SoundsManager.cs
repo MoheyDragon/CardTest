@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundsManager : Singletons<SoundsManager>
 {
@@ -10,7 +11,6 @@ public class SoundsManager : Singletons<SoundsManager>
     [SerializeField] AudioClip[] correctMatchClips;
     [SerializeField] AudioClip[] missMatchClips;
     [SerializeField] AudioClip[] comboClips;
-    [SerializeField] AudioClip[] clickOnMenuButtons;
     [SerializeField] AudioClip winSound;
     [SerializeField] AudioClip loseSound;
     [SerializeField] AudioClip levelMusic;
@@ -53,10 +53,6 @@ public class SoundsManager : Singletons<SoundsManager>
     private void OnCombo(int combo)
     {
         PlaySound(PickRandomClip(comboClips));
-    }
-    private void OnClick()
-    {
-        PlaySound(PickRandomClip(clickOnMenuButtons));
     }
     private void OnWin()
     {

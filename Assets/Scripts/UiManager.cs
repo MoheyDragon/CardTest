@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 public class UiManager : Singletons<UiManager>
 {
+    [SerializeField] CanvasGroup cardsCanvasGroup;
+    [Space]
     [SerializeField] TextMeshProUGUI levelName;
     [SerializeField] TextMeshProUGUI turns;
     [SerializeField] TextMeshProUGUI score;
@@ -18,18 +20,20 @@ public class UiManager : Singletons<UiManager>
         SetLoseMeter();
         ResetUiTextsValues();
     }
-    private void SubscribeToActions()
-    {
-        LevelManager.Singleton.OnTurn += UpdateTurns;
-        ScoreManager.Singleton.OnScore += UpdateScore;
-        ScoreManager.Singleton.OnCombo += UpdateCombo;
-    }
     private void ResetUiTextsValues()
     {
         levelName.text = LevelManager.Singleton.LevelIndex.ToString();
         UpdateCombo(0);
         UpdateScore(0);
         UpdateTurns(0);
+    }
+    private void SubscribeToActions()
+    {
+        LevelManager.Singleton.OnTurn += UpdateTurns;
+        ScoreManager.Singleton.OnScore += UpdateScore;
+        ScoreManager.Singleton.OnCombo += UpdateCombo;
+        LevelManager.Singleton.OnWin += DimCards;
+        LevelManager.Singleton.OnLose+= DimCards;
     }
     private void UpdateScore(int newValue)
     {
@@ -42,6 +46,10 @@ public class UiManager : Singletons<UiManager>
     private void UpdateTurns(int newValue)
     {
         UpdateText(turns, newValue);
+    }
+    private void DimCards()
+    {
+        cardsCanvasGroup.alpha = 0.5f;
     }
     // For now Game Supports 2 cases for losing , time based and mistakes count based, but for Ui I didn't have time to implement this dynamically also,
     // so it's better to only have one of the 2 values true or none 
