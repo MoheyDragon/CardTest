@@ -7,7 +7,7 @@ public class EndGameManager : Singletons<EndGameManager>
     [SerializeField] private GameObject restartButton;
     [SerializeField] private GameObject nextLevelButton;
     [SerializeField] private GameObject menuButton;
-    const int totalLevelCounts = 5;
+    
     private void Start()
     {
         Setup();
@@ -15,7 +15,7 @@ public class EndGameManager : Singletons<EndGameManager>
     }
     public void PlayNextLevel()
     {
-        SceneManager.LoadScene(LevelManager.Singleton.LevelIndex++);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
     public void Restart()
     {
@@ -41,7 +41,7 @@ public class EndGameManager : Singletons<EndGameManager>
     private void OnWin()
     {
         gameEndCanvas.enabled = true;
-        if (LevelManager.Singleton.LevelIndex == totalLevelCounts)
+        if (LevelManager.Singleton.LevelIndex == SaveLoadManager.Singleton.totalLevelCounts)
             ShowButtons(new GameObject[] { menuButton});
         else
             ShowButtons(new GameObject[] { menuButton,nextLevelButton});

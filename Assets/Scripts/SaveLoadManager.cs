@@ -5,6 +5,8 @@ using UnityEngine;
 public class SaveLoadManager : Singletons<SaveLoadManager>
 {
     string levelReachedPlayerPref="Level Reached";
+    [HideInInspector]
+    public int totalLevelCounts = 5;
     private void Start()
     {
         LoadLevelReached();
@@ -13,7 +15,7 @@ public class SaveLoadManager : Singletons<SaveLoadManager>
     }
     public int LoadLevelReached()
     {
-        return PlayerPrefs.GetInt(levelReachedPlayerPref, 1);
+        return PlayerPrefs.GetInt(levelReachedPlayerPref, 0);
     }
     private void SaveLevelReached()
     {

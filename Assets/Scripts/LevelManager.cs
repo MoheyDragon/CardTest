@@ -28,12 +28,12 @@ public class LevelManager : Singletons<LevelManager>
     private void Start()
     {
         SetupValues();
-        if (isLevelTimeLimited)
-            StartCoroutine(CO_StartMatchTimer());
-        Invoke(nameof(StartLevel), 1);
+        Invoke(nameof(StartLevel), CardManager.Singleton.ShowCardsDuration);
     }
     private void StartLevel()
     {
+        if (isLevelTimeLimited)
+            StartCoroutine(CO_StartMatchTimer());
         OnLevelStart?.Invoke();
     }
     private void SetupValues()
@@ -69,12 +69,12 @@ public class LevelManager : Singletons<LevelManager>
     IEnumerator CO_StartMatchTimer()
     {
         WaitForSeconds second = new WaitForSeconds(1);
-        float elapsedTime = 0;
+        float elapsedTime = levelTime;
         OnTimeUpdated?.Invoke((int)elapsedTime);
-        while (elapsedTime<=levelTime)
+        while (elapsedTime>0)
         {
             yield return second;
-            elapsedTime += 1;
+            elapsedTime --;
             OnTimeUpdated?.Invoke((int)elapsedTime);
         }
         OnLose?.Invoke();

@@ -1214,6 +1214,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671663968}
   m_CullTransparentMesh: 1
+--- !u!1 &674147728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674147729}
+  - component: {fileID: 674147730}
+  m_Layer: 0
+  m_Name: SaveLoadManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &674147729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674147728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1001932805}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674147730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674147728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54bf9ee313e62704f824eb66e15585a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalLevelCounts: 5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,56 +1655,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1de07bb605b89f94a8499d4c1b156559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelIndex: 1
+  LevelIndex: 2
   isLevelTimeLimited: 0
   levelTime: 4
   isMatchMistakesLimited: 0
   mistakesLimit: 3
---- !u!1 &885074027
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 885074028}
-  - component: {fileID: 885074029}
-  m_Layer: 0
-  m_Name: SaveLoadManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &885074028
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885074027}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1001932805}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &885074029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 885074027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54bf9ee313e62704f824eb66e15585a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  totalLevelCounts: 5
 --- !u!1 &923067942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,7 +1883,7 @@ Transform:
   - {fileID: 853096905}
   - {fileID: 1958139189}
   - {fileID: 720510591}
-  - {fileID: 885074028}
+  - {fileID: 674147729}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3034,7 +3034,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d825e4e1ba598754ca66f1dd5bd82a7d, type: 3}
   winSound: {fileID: 8300000, guid: 3ffa1ab0a39d7a543808d9712148e35e, type: 3}
   loseSound: {fileID: 8300000, guid: f6bfee2b3354f86408a1ac08907c66d2, type: 3}
-  levelMusic: {fileID: 8300000, guid: b275f648dfd19b549b8fb02cd0e99cb5, type: 3}
+  levelMusic: {fileID: 8300000, guid: 7db938fb74e0565499cafb3d4fa0f283, type: 3}
 --- !u!1 &1890217696
 GameObject:
   m_ObjectHideFlags: 0
@@ -3232,7 +3232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f202031be955645acab99c064b0647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardsCount: 16
+  cardsCount: 20
   cardPrefab: {fileID: 7413971155826813768, guid: 08ef52a5f13311c4c81784e82295f6aa, type: 3}
   cardFaces:
   - {fileID: 21300000, guid: 885027a95a7f92a4e97c92a4dc8d7f73, type: 3}
